@@ -1,0 +1,96 @@
+=== PAGE 1 ===
+Synoptic
+SVKM
+D. J. Sanghvi College of Engineering
+Programme: B.Tech in Electronics & Telecommunication Engineering
+Year: III/Semester V (Exam Year: 2025-2026)
+Subject: Digital Signal Processing
+Date: 05 Dec 2025 Max Marks: 60
+Time: 09:30 am - 11:30 am (02:00 Hrs.)
+FINAL EXAMINATION(2025-2026)
+Instructions:
+1. This Synoptic paper contains 7 pages
+2. Answer to each new question to be started on a fresh page.
+3. Figure in right hand side indicates full marks
+4. Assume suitable data whenever required.
+5. All questions are compulsory
+1.
+. 15
+a. 8
+b. 7
+..
+i. 7
+Page 1 of 7
+=== PAGE 2 ===
+------------- OR -------------
+ii. DFII is better as it requires fewer number of delays 7
+Page 2 of 7
+=== PAGE 3 ===
+2.
+. 15
+a.
+8
+hd(n)={0.1592, 0.2251, 0.25, 0.2251, 0.1592}
+b. . 7
+..
+i. N=2 means 2 poles notchFilter
+f=120 Hz
+Fs=600Hz
+w=2*pi*f/Fs = 2*pi*120/600 =2 pi/5
+Poles at 0.98e^j2pi/5 and 0.98e^-j2pi/5
+Zeros at e^j2pi/5 and e^-j2pi/5
+7
+Num= (z- e^j2pi/5)(z- e^-j2pi/5 )
+Page 3 of 7
+=== PAGE 4 ===
+Den= (z- 0.98e^j2pi/5)(z- 0.98e^-j2pi/5 )
+H(z)= Num/Den
+H(z)=(z^2-2*cos(2pi/5)z+1)/( z^2-2*0.98*cos(2pi/5)z+0.98^2)
+2 2
+H(z) = z -0.618 z +1 / z -0.6057 z + 0.9604
+------------- OR -------------
+7
+ii.
+Page 4 of 7
+=== PAGE 5 ===
+3.
+. 15
+a. 10
+b. . 5
+..
+i. 5
+Page 5 of 7
+=== PAGE 6 ===
+------------- OR -------------
+ii. 5
+4.
+. 15
+a. 8
+b. . 7
+..
+i. 7
+------------- OR -------------
+Page 6 of 7
+=== PAGE 7 ===
+ii.
+7
+Whenever the number of bits in the digital signal exceeds the capacity of the registers,
+overflow occurs. This can happen when two binary numbers are added or multiplied.
+Overflow can also occur in the A/D conversion process when the input signal’s
+amplitude exceeds the maximum range of the ADC. The overflow of signals results in a
+number of errors, namely, overflow limit cycles, product quantisation noise or saturation
+noise. Once these errors are detected they can be easily handled, however, the most
+efficient approach is to prevent these errors from occurring. This can be done by scaling
+the input at certain points in the digital filter. Scaling must be done in such a way that no
+overflow occurs at the summing point (accumulator) of the digital filter.
+Scaling in digital filters involves multiplying signals or coefficients with appropriate
+factors to ensure that the internal states of the filter do not exceed the allowable numeric
+range, thereby preventing overflow. FIR filters require only input scaling, while IIR
+filters require detailed internal scaling of each second-order section due to feedback and
+potential internal signal growth. Scaling does not affect the frequency response but
+ensures safe and efficient fixed-point implementation.
+Limit cycle oscillations are unwanted, self-sustained oscillations that occur in fixed-
+point digital filters even when the input is zero. They arise due to the nonlinear effects of
+quantization in the arithmetic operations of the filter.
+They are especially significant in IIR filters because of feedback loops.
+Page 7 of 7
