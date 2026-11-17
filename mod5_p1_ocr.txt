@@ -1,0 +1,20 @@
+10.4 THE QUANTIZATION NOISE*
+
+oe NN
+We know that for most of the engineering appheations, the input signal is continuous in time or
+analog wavefrom. In digital signal processing, analog, signal is to be converted into digital signal
+by using ADC. The process of converting an analog signal into a digital is shown in figure 10,1. At
+first, the signal x(t) is sampled at regular intervals t = nT, where, n = 0, 1, 2 .., to create a
+sequence xin). This is done by a sampler. The numeric equivalent of each sample x(n) is expressed
+
+— — A Se cee | ne ee
+ee
+
+* As an example, a common objective in quantization error analysis is to choose the digital word
+fength such that the digital system is a sufficiently accurate rentization of the desired linear system
+and at the same time, requires a minimum of hardware or software complexity. The digital word
+jegnth can, of course, be changed only in steps of 1 bit. and the addition of 1 bit to the word length
+reduces the size of quantization errors by a factor of 2. Thus, the choice of word length is insensitive
+to inaccuracies in the quantization error analysis; an analysis that is correct to within 30-40% is
+often adequate. For this reason, many of the important effects of quantization can be studied using
+linear models.

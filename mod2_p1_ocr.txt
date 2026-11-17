@@ -1,0 +1,76 @@
+\
+
+Ex. 1.2.6: A causal first-order digital filter is described by the system function.
+
+1+bz"
+
+H@)=Poy ez” >
+(a) Fora=0.5 andb= (- 0.6), sketch the pole zero pattern. Is the system le?
+
+Why ?
+(b) For a = (- 0.5) and b = 0.5, determine bo, S° that the maximum value of | H (a) | jg
+
+equal to 1. f
+
+fe)
+
+(c) Sketch the magnitude response | H (@) | and the phase response ZH (a) Of the fitter
+
+obtained in part (c).
+
+n that a = 0.8. Does the resulting filter amplify high
+
+(d) Ina specific application it is know
+frequencies or low frequencies in the input ? Choose the value of b so as to improve
+ke it a better lowpass or a better highpass filter)
+
+the characteristics of this filter (i.e. ma
+MU - Dec. 2007, 20 Marks
+
+Soin. :
+1+bz"
+
+Given : H(z) = ten
+
+0 -l
+l+az
+circle
+(a) For,a=0.5 andb=-0.6 >
+Weh H(z) b 1+0.62—
+ehave,H(z) = Do
+° 140.52 ,
+Z-0.6
+
+= 807 +05
+Zero is at Z, = 0.6 and Pole is at P, = - 0.5 and bg is gain
+Since pole lie inside unit circle it is stable system.
+(b) For,a=—0.5 andb=0.5
+
+-1
+> —_— |
+1-0.5z
+
+ie lene zl
+o=
+1-05¢e
+JSS _1+0.5 (cos @ —j sin @)
+1-0.5 (cos @ —j sin W )
+
+Fig. P. 1.2.6
+
+H||=H(z) .
+
+= by
+
+an f 1+0.5 (cos @—j 0.5 sinw
+| 1-0.5 (cosm+j 0.5 sinw)
+
+2 fw) = p, Ma a05 cos @) +(—0.5 sin @)
+VC 1-0.5 cos w) + (0.5 sin wo)
+
+ese 1 +cos @ + 0.25 cos” w + 0.25 sin’ @
+= a CPT
+9 1—cos @ + 0.25 cos’ @ + 0.25 sin’ w
+wee 1+cos w + 0.25
+te 9 1—cos w + 0.25
+
