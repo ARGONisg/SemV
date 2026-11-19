@@ -295,7 +295,11 @@ $$y(n) = \{6, \ 6, \ -1, \ -4, \ 2, \ 6, \ 4, \ 1\}$$
    * **Block 4:** $x_{4m} = [1, 1, 2, -1]$
      $$\begin{bmatrix} y_{4m}(0) \\ y_{4m}(1) \\ y_{4m}(2) \\ y_{4m}(3) \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & 2 \\ 2 & 1 & 0 & 0 \\ 0 & 2 & 1 & 0 \\ 0 & 0 & 2 & 1 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \\ 2 \\ -1 \end{bmatrix} = \begin{bmatrix} -1 \\ 3 \\ 4 \\ 3 \end{bmatrix}$$
      * Discard index 0 $\implies$ Keep: $\{3, 4, 3\}$.
-   * Final tail sample: Since input ends, remaining linear convolution tail gives: $(-1) \times 2 = -2$.
+   * **Block 5 (Zero-Padded Block to Capture Filter Transient Tail):**
+     Since input $x(n)$ of length $L_x = 12$ convolved with $h(n)$ of length $M = 2$ must produce a total of $L_y = L_x + M - 1 = 13$ linear convolution samples, append $M-1 = 1$ zero at the end ($x(12) = 0$) and form the 5th block:
+     $x_{5m}(n) = [-1, 0, 0, 0]$ (prepending last sample $x(11) = -1$, followed by $x(12) = 0$ zero-padded to length 4):
+     $$\begin{bmatrix} y_{5m}(0) \\ y_{5m}(1) \\ y_{5m}(2) \\ y_{5m}(3) \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & 2 \\ 2 & 1 & 0 & 0 \\ 0 & 2 & 1 & 0 \\ 0 & 0 & 2 & 1 \end{bmatrix} \begin{bmatrix} -1 \\ 0 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} -1 \\ -2 \\ 0 \\ 0 \end{bmatrix}$$
+     * Discard index 0 $\implies$ Keep: $\{-2\}$ (the 13th sample, $y(12) = -2$).
 
 4. **Concatenate Kept Samples:**
    $$y(n) = \{1, 4, 3, \ 0, 7, 4, \ -7, -7, -1, \ 3, 4, 3, \ -2\}$$
@@ -1385,6 +1389,73 @@ $$\mathbf{\int_{-\pi}^{\pi} |\ln |H(e^{j\omega})|| \, d\omega < \infty}$$
 
 # Module 5: Finite Word Length Effects in Digital Filters
 ## Exam-Only Preparation Guide
+
+
+## Visual Subtopic Flowchart
+
+```mermaid
+flowchart TD
+    M5["Module 5: Finite Word Length Effects in Digital Filters"]
+
+    %% Branch 1: Number Representation & Errors
+    M5 --> B1["1. Quantization & Number Representation Errors"]
+    B1 --> B1_ADC["ADC Quantization Noise Model"]
+    B1_ADC --> B1_ADC_F["Step Size: q = 2^(-B)<br/>White Noise Model: Uniform PDF p(e) = 1/q<br/>Noise Power: σ_e² = q²/12 = 2^(-2B)/12<br/>Rule: 6.02 dB SNR gain per bit"]
+    
+    B1 --> B1_TR["Truncation vs. Rounding"]
+    B1_TR --> B1_R["Rounding (All Formats)"]
+    B1_R --> B1_RF["Bound: -q/2 ≤ e_R ≤ q/2<br/>Mean μ = 0 (Unbiased)<br/>Variance: σ² = q²/12"]
+    B1_TR --> B1_T2["Truncation (2's Complement)"]
+    B1_T2 --> B1_T2F["Bound: -q < e_T ≤ 0<br/>Mean μ = -q/2 (Biased DC offset)<br/>Variance: σ² = q²/12"]
+    B1_TR --> B1_TSM["Truncation (Sign-Magnitude)"]
+    B1_TSM --> B1_TSMF["Bound: -q < e_T < q<br/>Mean μ = 0 (Symmetric)"]
+
+    %% Branch 2: Product Quantization
+    M5 --> B2["2. Product Quantization & Output Noise Power"]
+    B2 --> B2_Def["Two B-bit words multiply to 2B bits<br/>Must requantize back to B bits"]
+    B2 --> B2_Formula["Output Noise Power Formula:<br/>σ_yo² = σ_e² · Σ |h_i(n)|² = σ_e² · (1 / 2πj) ∮ H_i(z)H_i(z⁻¹) z⁻¹ dz"]
+    B2 --> B2_FirstOrder["First-Order IIR (H(z) = 1 / (1 - az⁻¹)):<br/>σ_yo² = (q²/12) · 1 / (1 - a²)"]
+    B2 --> B2_Struct["Structural Comparison"]
+    B2_Struct --> B2_Direct["Direct Form: Noise sources inject directly into feedback loop;<br/>poles near unit circle amplify noise drastically."]
+    B2_Struct --> B2_Cascade["Cascade Form: Low sensitivity;<br/>pairing poles with closest zeros & ordering sections optimizes SNR."]
+
+    %% Branch 3: Coefficient Quantization Sensitivity
+    M5 --> B3["3. Coefficient Quantization Sensitivity"]
+    B3 --> B3_Prob["Rounding/truncating coefficients shifts poles & zeros"]
+    B3 --> B3_Sens["Sensitivity: ∂p_i / ∂a_k ∝ 1 / Π_{j≠i} (p_i - p_j)"]
+    B3 --> B3_Danger["Direct Form Hazard:<br/>Tightly clustered poles cause explosive sensitivity;<br/>poles drift outside unit circle (|p| ≥ 1) → Instability!"]
+    B3 --> B3_Sol["Solution: Decompose into 2nd-Order Sections (Biquads)<br/>in Cascade or Parallel Form (decouples pole pairs)"]
+    B3 --> B3_FIR["FIR Filter Sensitivity:<br/>Zeros shift, stopband ripples worsen, but linear phase is preserved."]
+
+    %% Branch 4: Limit Cycle Oscillations
+    M5 --> B4["4. Limit Cycle Oscillations (Zero-Input Instabilities)"]
+    B4 --> B4_Def["Autonomous, periodic, steady oscillations in recursive (IIR) systems<br/>when input x(n) = 0, caused by nonlinear arithmetic."]
+    B4 --> B4_Types["3 Types of Limit Cycles"]
+    
+    B4_Types --> B4_T1["Type 1: Granular / Zero-Input Limit Cycles<br/>(Deadband Effect)"]
+    B4_T1 --> B4_T1F["Cause: Rounding arithmetic in feedback loop.<br/>Sustained low-level oscillation trapped in 'Deadband':<br/>|y(n)| ≤ (q/2) / (1 - |a|)"]
+    
+    B4_Types --> B4_T2["Type 2: Overflow Limit Cycles<br/>(Large-Scale / Rail-to-Rail)"]
+    B4_T2 --> B4_T2F["Cause: 2's complement adder wrap-around.<br/>Produces full-scale (+1 to -1) high-amplitude oscillations.<br/>Cure: Saturation Arithmetic (clipping instead of wrap)."]
+    
+    B4_Types --> B4_T3["Type 3: Coefficient Limit Cycles<br/>(Parameter-Induced Instability)"]
+    B4_T3 --> B4_T3F["Cause: Finite wordlength coefficient drift during dynamic runtime<br/>shifts poles onto or outside unit circle."]
+
+    %% Branch 5: Scaling to Prevent Overflow
+    M5 --> B5["5. Scaling to Prevent Accumulator Overflow"]
+    B5 --> B5_Def["Scale factor s_k applied to input/intermediate nodes<br/>to ensure internal states stay bounded within [-1, +1]."]
+    B5 --> B5_Norms["3 Scaling Norms (Types)"]
+    
+    B5_Norms --> B5_L1["L₁ Norm Scaling (Worst-Case Bound)"]
+    B5_L1 --> B5_L1F["Condition: |v_k(n)| ≤ 1 for ANY |x(n)| ≤ 1<br/>Formula: s_k ≤ 1 / Σ |h_k(n)| = 1 / ||H_k||₁<br/>Guaranteed zero overflow, but highly conservative (lowers SNR)."]
+    
+    B5_Norms --> B5_L2["L₂ Norm Scaling (RMS / Energy Scaling)"]
+    B5_L2 --> B5_L2F["Condition: Statistical bound for random / white noise inputs<br/>Formula: s_k ≤ 1 / √Σ |h_k(n)|² = 1 / ||H_k||₂<br/>Practical engineering standard: balances overflow safety with SNR."]
+    
+    B5_Norms --> B5_Linf["L_∞ Norm Scaling (Chebyshev / Peak Gain)"]
+    B5_Linf --> B5_LinfF["Condition: Prevents overflow for sinusoidal inputs at resonant peak<br/>Formula: s_k ≤ 1 / max_ω |H_k(e^(jω))| = 1 / ||H_k||_∞"]
+```
+
 
 ---
 

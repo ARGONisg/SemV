@@ -282,7 +282,11 @@ $$y(n) = \{6, \ 6, \ -1, \ -4, \ 2, \ 6, \ 4, \ 1\}$$
    * **Block 4:** $x_{4m} = [1, 1, 2, -1]$
      $$\begin{bmatrix} y_{4m}(0) \\ y_{4m}(1) \\ y_{4m}(2) \\ y_{4m}(3) \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & 2 \\ 2 & 1 & 0 & 0 \\ 0 & 2 & 1 & 0 \\ 0 & 0 & 2 & 1 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \\ 2 \\ -1 \end{bmatrix} = \begin{bmatrix} -1 \\ 3 \\ 4 \\ 3 \end{bmatrix}$$
      * Discard index 0 $\implies$ Keep: $\{3, 4, 3\}$.
-   * Final tail sample: Since input ends, remaining linear convolution tail gives: $(-1) \times 2 = -2$.
+   * **Block 5 (Zero-Padded Block to Capture Filter Transient Tail):**
+     Since input $x(n)$ of length $L_x = 12$ convolved with $h(n)$ of length $M = 2$ must produce a total of $L_y = L_x + M - 1 = 13$ linear convolution samples, append $M-1 = 1$ zero at the end ($x(12) = 0$) and form the 5th block:
+     $x_{5m}(n) = [-1, 0, 0, 0]$ (prepending last sample $x(11) = -1$, followed by $x(12) = 0$ zero-padded to length 4):
+     $$\begin{bmatrix} y_{5m}(0) \\ y_{5m}(1) \\ y_{5m}(2) \\ y_{5m}(3) \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & 2 \\ 2 & 1 & 0 & 0 \\ 0 & 2 & 1 & 0 \\ 0 & 0 & 2 & 1 \end{bmatrix} \begin{bmatrix} -1 \\ 0 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} -1 \\ -2 \\ 0 \\ 0 \end{bmatrix}$$
+     * Discard index 0 $\implies$ Keep: $\{-2\}$ (the 13th sample, $y(12) = -2$).
 
 4. **Concatenate Kept Samples:**
    $$y(n) = \{1, 4, 3, \ 0, 7, 4, \ -7, -7, -1, \ 3, 4, 3, \ -2\}$$

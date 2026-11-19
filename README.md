@@ -12,6 +12,7 @@ Comprehensive, high-yield, exam-only preparation guides for **Digital Signal Pro
 | **[Modules 1, 3 & 4 Guide](./DSP_Modules_1_3_4_DFT_FIR_IIR_Guide.md)** | **DFT/FFT, FIR & IIR Filters** | DIT/DIF FFT, Overlap-Add/Save, Circular Convolution, Windowing, Frequency Sampling, IIM, BLT, Butterworth Design & IIR Realizations. |
 | **[Module 2 Guide](./DSP_Module_2_LTI_Systems_Guide.md)** | **Analysis of LTI Systems** | Pole-zero effects on frequency response, Notch filters, Comb filters, All-pass systems, Minimum/Maximum/Mixed-phase systems, Paley-Wiener theorem. |
 | **[Module 5 Guide](./DSP_Module_5_Finite_Word_Length_Effects_Guide.md)** | **Finite Word Length Effects** | ADC quantization noise $\sigma_e^2 = q^2/12$, Product quantization noise, Coefficient quantization sensitivity, Limit cycle deadband derivation, Overflow scaling ($L_1, L_2, L_\infty$). |
+| **[Module 5 Flowchart & Overlap-Save Tail](./DSP_Module_5_Flowchart_and_Overlap_Save_Tail_Explained.md)** | **Visual Flowchart & Concept Deep-Dive** | Complete Mermaid flowchart of Module 5 subtopics + rigorous 5-block explanation of why Overlap-Save linear convolution output length is $L_x + M - 1$. |
 | **[10 DFT Properties Explained](./DSP_10_DFT_Properties_Explained.md)** | **DFT Properties & Proofs** | Plain-English explanations + verified numerical examples ($N=4, x(n)=\{1,2,3,4\}$) for all 10 standard DFT properties. |
 
 ---
